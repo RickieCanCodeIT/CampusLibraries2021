@@ -30,5 +30,11 @@ public class Populator implements CommandLineRunner {
         campusRepo.save(campus1);
         Book book1 = new Book("The Fellowship of the Ring", "Really good book", true, campus1, author1);
         bookRepo.save(book1);
+
+        Campus campus2 = new Campus("Moab", "C++");
+        campusRepo.save(campus2);
+
+        Campus campus3 = new Campus("Flordia", "Python");
+        campusRepo.save(campus3);
     }
 }
