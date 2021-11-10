@@ -1,19 +1,16 @@
 package com.wcci.CampusLibraries.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
 public class Campus {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String location;
     private String techStack;
-    @OneToMany(mappedBy = "campus")
+    @OneToMany(mappedBy = "campus", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Book> books;
 
     public Campus(String location, String techStack) {
@@ -25,7 +22,11 @@ public class Campus {
 
     }
 
-    public long getId() {
+    public void setLocation(String newLocation) {
+        location = newLocation;
+    }
+
+    public Long getId() {
         return id;
     }
 

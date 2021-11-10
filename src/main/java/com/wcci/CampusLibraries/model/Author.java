@@ -13,7 +13,7 @@ import java.util.Set;
 public class Author {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String name;
     private String bio;
 
@@ -30,7 +30,7 @@ public class Author {
 
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

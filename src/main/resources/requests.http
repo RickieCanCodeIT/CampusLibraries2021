@@ -18,3 +18,45 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:8080/campuses/
+###
+GET http://localhost:8080/campuses/2
+###
+POST http://localhost:8080/campuses/
+Content-Type: application/json
+
+{
+  "location": "Cleveland",
+  "techStack": "C#",
+  "books": [
+  ]
+}
+###
+PUT http://localhost:8080/campuses/
+Content-Type: application/json
+
+{
+    "id": 3,
+  "location": "Cleveland",
+  "techStack": "JavaSharp",
+  "books": [
+  ]
+}
+###
+PATCH http://localhost:8080/campuses/2/location
+
+Dayton
+###
+PATCH http://localhost:8080/campuses/2/book
+Content-Type: application/json
+
+{
+    "title": "Return of the King",
+    "authors": [
+        {
+            "name": "Ayn Rand",
+            "bio": "Would be terrible"
+        }
+    ],
+    "description": "Also realy good",
+    "available": true
+}

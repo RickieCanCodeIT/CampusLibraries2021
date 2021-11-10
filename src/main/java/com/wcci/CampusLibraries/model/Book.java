@@ -11,7 +11,7 @@ import java.util.Set;
 public class Book {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String title;
     @ManyToOne
     @JsonIgnore
@@ -34,11 +34,15 @@ public class Book {
 
     }
 
+    public void addCampus(Campus newCampus) {
+        campus = newCampus;
+    }
+
     public Campus getCampus() {
         return campus;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
