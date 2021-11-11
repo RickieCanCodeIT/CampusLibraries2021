@@ -1,28 +1,26 @@
+
+import {displayCampusesView} from "./campuses.js";
+
 const containerEl = document.querySelector(".container");
 
 
-
-const headerEl = document.createElement("header");
-headerEl.classList.add("main-header");
-
-const h1El = document.createElement("h1");
-h1El.classList.add("main-header");
-h1El.innerText = "We Can Code IT Campus Libraries";
-
-const mainEl = document.createElement("main");
-mainEl.classList.add("main-content");
-
-const sectionEl = document.createElement("section");
-sectionEl.classList.add("campus-list");
+fetch("http://localhost:8080/campuses/")
+.then(res => res.json())
+.then(campuses => displayCampusesView(containerEl, campuses))
 
 
-headerEl.appendChild(h1El);
-mainEl.appendChild(sectionEl);
-
-containerEl.appendChild(headerEl);
-containerEl.appendChild(mainEl);
 
 
+
+
+function clearChildren(element){
+    while(element.firstChild){
+        element.removeChild(element.lastChild);
+    }
+};
+
+
+export{clearChildren};
 
 /* <header class="main-header">
 THis is the header text

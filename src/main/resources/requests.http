@@ -1,22 +1,7 @@
 ###
 GET http://localhost:8080/books/
 ###
-POST http://localhost:8080/books/
-Content-Type: application/json
 
-{
-    "title": "The Two Towers",
-    "authors": [
-        {
-            "id": 1,
-            "name": "Ayn Rand",
-            "bio": "Would be terrible"
-        }
-    ],
-    "description": "Also realy good",
-    "available": true
-}
-###
 GET http://localhost:8080/campuses/
 ###
 GET http://localhost:8080/campuses/2

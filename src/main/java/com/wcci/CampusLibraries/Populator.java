@@ -34,7 +34,7 @@ public class Populator implements CommandLineRunner {
         Campus campus2 = new Campus("Moab", "C++");
         campusRepo.save(campus2);
 
-        Campus campus3 = new Campus("Flordia", "Python");
+        Campus campus3 = new Campus("Florida", "Python");
         campusRepo.save(campus3);
     }
 }
