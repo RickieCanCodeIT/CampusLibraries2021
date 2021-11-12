@@ -1,26 +1,24 @@
 //import { campusesJson} from "./campusesJson.js";
-import { displayCampusView } from "./campus.js";
-import {clearChildren} from "./app.js"
-function displayCampusesView(containerEl,campusesJson) {
-    const headerEl = document.createElement("header");
-    headerEl.classList.add("main-header");
+import {
+    displayCampusView
+} from "./campus.js";
+import {
+    clearChildren
+} from "./app.js"
 
-    const h1El = document.createElement("h1");
-    h1El.classList.add("main-header");
-    h1El.innerText = "We Can Code IT Campus Libraries";
+function displayCampusesView(mainEl, campusesJson) {
 
-    const mainEl = document.createElement("main");
-    mainEl.classList.add("main-content");
+
+
+
+
 
     const sectionEl = document.createElement("section");
     sectionEl.classList.add("campus-list");
-
-
-    headerEl.appendChild(h1El);
     mainEl.appendChild(sectionEl);
 
-    containerEl.appendChild(headerEl);
-    containerEl.appendChild(mainEl);
+
+
 
     campusesJson.forEach(campus => {
         const divEl = document.createElement("div");
@@ -37,8 +35,56 @@ function displayCampusesView(containerEl,campusesJson) {
 
         campusLocationEl.addEventListener("click", () => {
             clearChildren(mainEl);
-            displayCampusView(mainEl,campus);
+            displayCampusView(mainEl, campus, campusesJson);
         });
     });
+    // const hrEL = document.createElement("hr");
+    // mainEl.appendChild(hrEL);
+
+    const newCampusDiv = document.createElement("div");
+    const newCampusLocation = document.createElement("input");
+    newCampusLocation.type = "text";
+    newCampusLocation.placeholder = "Enter Campus Location"
+
+    const newTechStack = document.createElement("input");
+    newTechStack.type = "text";
+    newTechStack.placeholder = "Enter Tech Stack";
+
+    const submitNewCampus = document.createElement("button");
+    submitNewCampus.innerText = "Submit New Campus";
+
+    newCampusDiv.appendChild(newCampusLocation);
+    newCampusDiv.appendChild(newTechStack);
+    newCampusDiv.appendChild(submitNewCampus);
+
+    mainEl.appendChild(newCampusDiv);
+
+    submitNewCampus.addEventListener("click", () => {
+
+        const newCampusJson = {
+            "location": newCampusLocation.value,
+            "techStack": newTechStack.value,
+            "books": []
+        }
+        fetch("http://localhost:8080/campuses/", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newCampusJson)
+
+            })
+            .then(res => res.json())
+            .then(campuses => {
+                clearChildren(mainEl);
+                displayCampusesView(mainEl, campuses)
+            })
+            .catch(error => console.error(error));
+    });
+
+
+
 }
-export {displayCampusesView};
+export {
+    displayCampusesView
+};

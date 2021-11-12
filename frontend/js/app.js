@@ -1,44 +1,59 @@
-
-import {displayCampusesView} from "./campuses.js";
+import {
+    displayCampusesView
+} from "./campuses.js";
 
 const containerEl = document.querySelector(".container");
 
-
-fetch("http://localhost:8080/campuses/")
-.then(res => res.json())
-.then(campuses => displayCampusesView(containerEl, campuses))
-
+buildHeader();
+buildMainElement();
+buildFooter();
 
 
 
 
 
-function clearChildren(element){
-    while(element.firstChild){
+
+function clearChildren(element) {
+    while (element.firstChild) {
         element.removeChild(element.lastChild);
     }
 };
 
+function buildHeader() {
+    const headerEl = document.createElement("header");
+    headerEl.classList.add("main-header");
+    const h1El = document.createElement("h1");
+    h1El.classList.add("main-header");
+    h1El.innerText = "We Can Code IT Campus Libraries";
+    headerEl.appendChild(h1El);
+    containerEl.appendChild(headerEl);
+}
 
-export{clearChildren};
+function buildMainElement() {
+    const mainEl = document.createElement("main");
+    mainEl.classList.add("main-content");
+    containerEl.appendChild(mainEl);
 
-/* <header class="main-header">
-THis is the header text
-<h1 class="main-header__title">We Can Code IT Campus Libraries</h1>
-</header>
-<main class="main-content">
-<section class="campus-list">
-    <div class="campus">
-        <h2 class="campus-location">Columbus</h2>
-        <h3 class="campus-tech-stack">Java</h3>
-    </div>
-    <div class="campus">
-        <h2 class="campus-location">Cleveland</h2>
-        <h3 class="campus-tech-stack">C#</h3>
-    </div>
-    <div class="campus">
-        <h2 class="campus-location">The MOON</h2>
-        <h3 class="campus-tech-stack">JavaScript</h3>
-    </div>
-</section>
-</main> */
+    fetch("http://localhost:8080/campuses/")
+        .then(res => res.json())
+        .then(campuses => {
+            displayCampusesView(mainEl, campuses)
+            
+        })
+       
+}
+
+function buildFooter(){
+    const footerEl = document.createElement("footer");
+    footerEl.classList.add("main-footer");
+    const smallEl = document.createElement("small");
+    smallEl.classList.add("main-footer__copyright");
+    smallEl.innerHTML = "We Can Code IT &copy;2020"
+    footerEl.appendChild(smallEl);
+    containerEl.appendChild(footerEl);
+}
+
+export {
+    clearChildren
+};
+
