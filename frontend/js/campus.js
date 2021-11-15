@@ -129,6 +129,43 @@ function displayCampusView(containerEl, campus, campuses) {
 
     })
 
+    const editCampusDiv = document.createElement("div");
+
+    const locationEl = document.createElement("input");
+    locationEl.type = "text";
+    locationEl.placeholder = "Enter Campus Location";
+
+    const techStackEl = document.createElement("input");
+    techStackEl.type = "text";
+    techStackEl.placeholder = "Enter tech stack";
+
+    const editButton = document.createElement("button");
+    editButton.innerText = "Edit Campus";
+
+    editCampusDiv.appendChild(locationEl);
+    editCampusDiv.appendChild(techStackEl);
+    editCampusDiv.appendChild(editButton);
+
+    containerEl.appendChild(editCampusDiv);
+
+    editButton.addEventListener("click", () => {
+        campus.location = locationEl.value;
+        campus.techStack = techStackEl.value;
+
+        fetch(`http://localhost:8080/campuses/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(campus)
+            })
+            .then(res => res.json())
+            .then(campuses => {
+                clearChildren(containerEl);
+                displayCampusesView(containerEl, campuses);
+            })
+            .catch(err => console.error(err));
+    })
 
 }
 export {

@@ -27,9 +27,12 @@ function displayCampusesView(mainEl, campusesJson) {
         const campusTechStackEl = document.createElement("h3");
         campusLocationEl.innerText = campus.location;
         campusTechStackEl.innerText = campus.techStack;
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "Delete";
 
         divEl.appendChild(campusLocationEl);
         divEl.appendChild(campusTechStackEl);
+        divEl.appendChild(deleteButton);
 
         sectionEl.appendChild(divEl);
 
@@ -37,6 +40,18 @@ function displayCampusesView(mainEl, campusesJson) {
             clearChildren(mainEl);
             displayCampusView(mainEl, campus, campusesJson);
         });
+
+        deleteButton.addEventListener("click", () => {
+            fetch(`http://localhost:8080/campuses/${campus.id}`, {
+                    method: 'DELETE'
+                })
+                .then(res => res.json())
+                .then(campuses => {
+                    clearChildren(mainEl);
+                    displayCampusesView(mainEl, campuses);
+                })
+                .catch(err => console.error(err));
+        })
     });
     // const hrEL = document.createElement("hr");
     // mainEl.appendChild(hrEL);

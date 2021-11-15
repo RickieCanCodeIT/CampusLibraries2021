@@ -27,16 +27,4 @@ public class BookController {
         return bookRepo.findAll();
     }
 
-    @PostMapping("/")
-    public Iterable<Book>  addBook(@RequestBody Book bookToAdd) {
-        Collection<Author> tempAuthors = bookToAdd.getAuthors();
-        for (Author currentAuthor: tempAuthors) {
-            Optional<Author> authorExists = authorRepo.findById(currentAuthor.getId());
-            if (authorExists.isEmpty()) {
-                authorRepo.save(currentAuthor);
-            }
-        }
-        bookRepo.save(bookToAdd);
-        return bookRepo.findAll();
-    }
 }
